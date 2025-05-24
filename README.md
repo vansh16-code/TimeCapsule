@@ -14,9 +14,7 @@
 
 ---
 
-## 📸 Screenshots
 
-> *(Add screenshots here if available)*
 
 ---
 
@@ -28,23 +26,8 @@
 
 ---
 
-## 📂 Project Structure
 
-TimeCapsule/
-├── public/
-├── src/
-│ ├── components/
-│ │ ├── MessageForm.js
-│ │ ├── CapsuleViewer.js
-│ │ └── Footer.js
-│ ├── App.js
-│ └── index.js
-├── package.json
-└── README.md
 
-yaml
-Copy
-Edit
 
 ---
 
