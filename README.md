@@ -1,67 +1,96 @@
-# ⏳ TimeCapsule
+# Time Capsule React App
 
-**TimeCapsule** is a lightweight React web app that lets users write and view time-locked messages. Inspired by the concept of a digital time capsule, it allows users to submit a message and retrieve it later through a unique link.
-
----
-
-## 🚀 Features
-
-- 📩 Write and store a message for the future  
-- 🔒 Each message gets a unique shareable link  
-- 🕰 View any time capsule by its ID  
-- 📱 Responsive design using Bootstrap 5  
-- 🧩 Built with React and React Router  
+A simple React app that lets users create "time capsules" — messages locked until a future unlock date. The app uses JSON Server as a backend to store capsules with unlock times.
 
 ---
 
+## Features
 
-
----
-
-## 🛠 Tech Stack
-
-- **React** – Frontend library  
-- **React Router** – Page navigation  
-- **Bootstrap 5** – Styling and layout  
+- Create a message with a future unlock date/time
+- Messages remain locked until their unlock time passes
+- View messages by their unique ID
+- Delete messages after unlocking (optional feature)
+- Responsive UI with Bootstrap styling
 
 ---
 
+## Tech Stack
 
-
+- React (with React Router)
+- JSON Server (fake REST API backend)
+- Bootstrap 5 for styling
+- Day.js for date handling
 
 ---
 
-## 🧪 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-- Node.js ≥ 14  
-- npm or yarn  
-
-### Installation
+- Node.js and npm installed
+- `json-server` installed globally or as a dev dependency
 
 ```bash
-git clone https://github.com/your-repo/timecapsule.git
-cd timecapsule
-npm install
-Run the App
+npm install -g json-server
+Setup Backend (JSON Server)
+Create a db.json file in the project root with the following structure:
+
+json
+Copy code
+{
+  "capsules": []
+}
+Start JSON Server:
+
 bash
-Copy
-Edit
+Copy code
+json-server --watch db.json --port 3001
+This will run the fake API at http://localhost:3001.
+
+Setup Frontend (React)
+Install dependencies:
+
+bash
+Copy code
+npm install
+Start React development server:
+
+bash
+Copy code
 npm start
-Visit http://localhost:3000 in your browser.
+Access the app at http://localhost:3000.
 
-📝 Usage
-Go to the homepage.
+Usage
+Use the form to create a new time capsule message and set the unlock date/time.
 
-Write a message and submit it.
+After submission, you'll be redirected to the message view page.
 
-Copy the unique link.
+Messages remain locked until the specified unlock time.
 
-Share or save it to revisit later.
+Once unlocked, you can read or delete your message.
 
-📄 License
+Folder Structure
+pgsql
+Copy code
+my-timecapsule-app/
+├── public/
+├── src/
+│   ├── components/
+│   ├── App.js
+│   └── index.js
+├── db.json
+├── package.json
+└── README.md
+Notes
+The backend uses JSON Server, so data is stored in db.json.
+
+The app expects JSON Server to run on port 3001.
+
+Unique message IDs are generated with timestamps (Date.now()) or UUIDs.
+
+Make sure your browser and React app are running on different ports (default React: 3000).
+
+License
 This project is open source and available under the MIT License.
 
-🌟 Support
-If you like this project, consider giving it a ⭐ on GitHub and sharing it!
+Feel free to contribute or raise issues!
