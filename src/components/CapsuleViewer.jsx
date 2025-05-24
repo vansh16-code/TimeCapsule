@@ -9,27 +9,33 @@ export default function CapsuleViewer() {
   const [isUnlocked, setIsUnlocked] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem(`capsule-${id}`);
-    if (stored) {
-      const data = JSON.parse(stored);
-      setCapsule(data);
-
-      const checkUnlock = () => {
-        if (dayjs().isAfter(dayjs(data.unlockTime))) {
-          setIsUnlocked(true);
-        } else {
-          setTimeout(checkUnlock, 1000);
-        }
-      };
-      checkUnlock();
-    }
+    fetch(`http://localhost:3001/capsules/${id}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Capsule not found');
+        return res.json();
+      })
+      .then(data => {
+        setCapsule(data);
+        const checkUnlock = () => {
+          if (dayjs().isAfter(dayjs(data.unlockTime))) {
+            setIsUnlocked(true);
+          } else {
+            setTimeout(checkUnlock, 1000);
+          }
+        };
+        checkUnlock();
+      })
+      .catch(() => setCapsule(null));
   }, [id]);
 
   const handleDelete = () => {
     const confirmDelete = window.confirm("Are you sure you want to delete this message?");
     if (confirmDelete) {
-      localStorage.removeItem(`capsule-${id}`);
-      navigate('/'); // Redirect to home or message list page
+      fetch(`http://localhost:3001/capsules/${id}`, {
+        method: 'DELETE'
+      })
+        .then(() => navigate('/'))
+        .catch(err => console.error("Delete failed", err));
     }
   };
 
