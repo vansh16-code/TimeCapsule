@@ -1,9 +1,10 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 
 export default function CapsuleViewer() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [capsule, setCapsule] = useState(null);
   const [isUnlocked, setIsUnlocked] = useState(false);
 
@@ -24,6 +25,14 @@ export default function CapsuleViewer() {
     }
   }, [id]);
 
+  const handleDelete = () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this message?");
+    if (confirmDelete) {
+      localStorage.removeItem(`capsule-${id}`);
+      navigate('/'); // Redirect to home or message list page
+    }
+  };
+
   if (!capsule) {
     return <p className="text-muted text-center mt-4">Capsule not found.</p>;
   }
@@ -34,6 +43,11 @@ export default function CapsuleViewer() {
         <>
           <h2 className="text-center text-success mb-3">📬 Your Message</h2>
           <p className="fs-5 text-dark">{capsule.message}</p>
+          <div className="text-center mt-4">
+            <button className="btn btn-danger" onClick={handleDelete}>
+              🗑️ Delete Message
+            </button>
+          </div>
         </>
       ) : (
         <>
